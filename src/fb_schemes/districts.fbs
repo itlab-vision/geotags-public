@@ -1,0 +1,76 @@
+namespace DistrictsData;
+
+enum GeometryType : byte {
+  Unknown = 0,
+  Point = 1,
+  LineString = 2,
+  Polygon = 3,
+  MultiPoint = 4,
+  MultiLineString = 5,
+  MultiPolygon = 6,
+  GeometryCollection = 7
+}
+
+struct Point {
+  x: double;
+  y: double;
+}
+
+struct Rect {
+  min: Point;
+  max: Point;
+}
+
+table Ring {
+  points: [Point] (required);
+  closed: bool = true;
+  npoints: int;
+
+  // добавленные метаданные для ускорения загрузки
+  area: double;
+  bbox: Rect (required);
+
+  // optional: extra coords (Z/M)
+  extra_coords: [double];
+  ncoords_per_vertex: int = 0;
+}
+
+table Polygon {
+  exterior: Ring (required);
+  holes: [Ring];
+  nholes: int;
+  bbox: Rect (required);
+}
+
+table MultiPolygon {
+  polys: [Polygon] (required);
+  npolys: int;
+  bbox: Rect (required);
+}
+
+union GeometryUnion { Point, Ring, Polygon, MultiPolygon }
+
+table Geometry {
+  gtype: GeometryType;
+  geom: GeometryUnion (required);
+}
+
+
+table DistrictInfo {
+  id: uint;
+  name_en: string;
+  name: string;
+}
+
+// One stored entry (info + geometry)
+table DistrictEntry {
+  info: DistrictInfo (required);
+  geom: Geometry (required);
+}
+
+table Districts {
+  entries: [DistrictEntry] (required);
+  version: uint = 1;
+}
+
+root_type Districts;

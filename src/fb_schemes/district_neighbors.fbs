@@ -1,0 +1,12 @@
+namespace DistrictNeighborsData;
+
+table District {
+    id:uint (key);
+    neighbors: [uint];
+}
+
+table DistrictNeighbors {
+    data: [District];
+}
+
+root_type DistrictNeighbors;

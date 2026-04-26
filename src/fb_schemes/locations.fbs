@@ -1,0 +1,26 @@
+namespace LocationsData;
+
+struct Coordinates {
+    latitude:double;
+    longitude:double;
+}
+
+table LocationInfo {
+    location_id:uint;
+    country:string;
+    city:string;
+    region_id:int;
+    district_id:int;
+    alt_names:[string];
+}
+
+table Location {
+    info:LocationInfo;
+    coords:Coordinates;
+}
+
+table Locations {
+    data:[Location];
+}
+
+root_type Locations;

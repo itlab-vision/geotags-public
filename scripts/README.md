@@ -1,0 +1,141 @@
+# Вспомогательные скрипты
+
+## Создание виртуальной среды и установка зависимостей
+
+Для работы со скриптами необходимо создать и настроить виртуальную среду,
+в которую установить сторонние библиотеки, описанные в requirements.txt.
+
+1. Настройка виртуальной среды.
+
+   1. Создание: `python -m venv venv`.
+   1. Активация:
+      - Linux: `source ./venv/bin/activate`.
+      - Windows (powershell): `.\venv\Scripts\Activate.ps1`.
+
+1. Установка сторонних библиотек: `pip install -r ./scripts/requirements.txt`.
+
+## Скрипты для обработки баз данных
+
+### Скрипт фильтрации баз достопримечательностей городов-миллионников РФ
+
+```bash
+python3 ./scripts/filter_attractions_table.py  -i <path/to/input_csv_db> \
+                                               -a <path/to/attributes_file> \
+                                               -o <path/to/output_csv_db>
+```
+
+Для запуска необходимо передать путь к базе городов (ключ `-i`), путь к файлу
+с атрибутами (ключ `-a`) и путь с названием файла, куда будет сохранена база
+достопримечательностей (ключ `-o`).
+
+Пример:
+
+```bash
+python3 ./scripts/filter_attractions_table.py -i ./world-cities.csv \
+                                              -o ./test_data/cities_dbs/world_cities.csv
+```
+
+### Скрипт загрузки базы городов РФ
+
+```bash
+python3 ./scripts/parse_russian_cities_html.py  -s <path/to/cities_db>
+```
+
+Для запуска необходимо передать путь с названием файла, куда будет сохранена база
+городов (ключ `-s`).
+
+Пример:
+
+```bash
+python3 ./scripts/parse_russian_cities_html.py -s ./test_data/cities_dbs/russian_cities.csv
+```
+
+### Скрипт обработки базы мировых городов
+
+```bash
+python3 ./scripts/parse_world_cities_db.py  -i <path/to/input_cities_db> \
+                                            -o <path/to/output_cities_db>
+```
+
+Для запуска необходимо передать путь к исходной базе (ключ `-i`) и путь с названием файла,
+куда будет сохранена база городов (ключ `-o`).
+
+Пример:
+
+```bash
+python3 ./scripts/parse_world_cities_db.py -i ./world-cities.csv \
+                                           -o ./test_data/cities_dbs/world_cities.csv
+```
+
+### Скрипт обработки базы городов с населением более 1000 человек
+
+```bash
+python3 ./scripts/parse_cities_population_1000.py  -i <path/to/input_cities_db> \
+                                                   -o <path/to/output_cities_db>
+```
+
+Для запуска необходимо передать путь к исходной базе (ключ `-i`) и путь с названием файла,
+куда будет сохранена база городов (ключ `-o`).
+
+Пример:
+
+```bash
+python3 ./scripts/parse_cities_population_1000.py -i ./geonames-all-cities-with-a-population-1000.csv \
+                                                  -o ./test_data/cities_dbs/cities_with_a_population_1000.csv
+```
+
+### Скрипт обработки баз административно-территориальных единиц РФ и мира
+
+```bash
+python3 ./scripts/parse_admin_units_db.py  -i <path/to/input_osmb_cities_db> \
+                                           -o <path/to/output_csv_cities_db>
+```
+
+Для запуска необходимо передать путь к исходной OSM базе (ключ `-i`) и путь с названием файла,
+куда будет сохранена база административных единиц (ключ `-o`).
+
+Пример:
+
+```bash
+python3 ./scripts/parse_admin_units_db.py -i ./OSMB-rus-admin-units.geojson \
+                                          -o ./test_data/admin_units_dbs/russian_admin_units.csv
+```
+
+### Скрипт объединения базы городов с базами административно-территориальных единиц
+
+```bash
+python3 ./scripts/join_cities_admins.py  -c <path/to/cities_db> \
+                                         -a <path/to/admin_units_db1> [<path/to/admin_units_db2> ...] \
+                                         -o <path/to/output_cities_admins_db>
+```
+
+Для запуска необходимо передать путь до базы городов (ключ `-c`), пути к базам административно-территориальных
+единиц (ключ `-a`) и путь с названием файла, куда будет сохранена объединённая база городов
+и административно-территориальных единиц (ключ `-o`).
+
+Пример:
+
+```bash
+python3 ./scripts/join_cities_admins.py -c ./test_data/cities_dbs/russian_cities.csv \
+                                        -a ./test_data/admin_units_dbs/russian_admin_units.csv \
+                                        -o ./test_data/admin_units_and_cities_dbs/rus_cities_admins.csv
+```
+
+### Скрипт визуализации карты с указанием городов и административно-территориальных единиц
+
+```bash
+python3 ./scripts/visualize_cities_admins_on_map.py -a <path/to/admin_units_db> \
+                                                    [-c <path/to/cities_db>] \
+                                                    -o <output_file>
+```
+
+Для запуска необходимо передать базу административных единиц (ключ `-a`) и название выходного
+html-файла (ключ `-o`), указание базы городов (ключ `-c`) является необязательным.
+
+Пример:
+
+```bash
+python3 ./scripts/visualize_cities_admins_on_map.py -a ./test_data/admin_units_dbs/russian_admin_units.csv \
+                                                    -c ./test_data/cities_dbs/russian_cities.csv \
+                                                    -o ./russian_admin_cities.html
+```
