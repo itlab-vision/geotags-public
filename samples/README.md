@@ -8,12 +8,6 @@
 
 Для запуска приложения необходимо передать путь до изображения (ключ `-i`).
 
-Пример:
-
-```bash
-./build/getcoordinates_app -i="./test_data/images/probe.jpg"
-```
-
 ## Приложение для определения текущей локации
 
 ```bash
@@ -50,8 +44,8 @@
 Версия 1.0
 ```bash
 ./build/geotags_app -d=haversine \
-                    -f="./test_data/cities_dbs/russian_cities.csv" \
-                    -i="./test_data/images/probe.jpg" \
+                    -f=<path/to/coordinates.csv> \
+                    -i=<path/to/image.jpg> \
                     -t=csv \
                     -st=linear \
                     -s
@@ -60,8 +54,8 @@
 Версия 2.0 | 2.1
 ```bash
 ./build/geotags_app -d=haversine \
-                    -f="./test_data/cities_dbs/russian_cities.csv" \
-                    -i="./test_data/images/probe.jpg" \
+                    -f=<path/to/coordinates.csv> \
+                    -i=<path/to/image.jpg> \
                     -t=csv_fb \
                     -st=linear \
                     -s
@@ -70,8 +64,8 @@
 Версия 3.0
 ```bash
 ./build/geotags_app -d=haversine \
-                    -f="./test_data/cities_dbs/russian_cities.csv" \
-                    -i="./test_data/images/probe.jpg" \
+                    -f=<path/to/coordinates.csv> \
+                    -i=<path/to/image.jpg> \
                     -t=csv_fb \
                     -st=grid|grid_binary \
                     -s
@@ -88,14 +82,6 @@
 Для запуска приложения необходимо передать путь до изображения
 (ключ `-i`) и до файла в формате `.csv`, содержащего базу регионов.
 
-Пример:
-
-```bash
-./build/search_districts_app -i="./test_data/images/probe.jpg" \ 
-                             -r="./test_data/admin_units_dbs/russian_admin_units.csv" \
-                             -t=csv
-```
-
 ## Приложение для определения города и региона (для РФ)
 
 ```bash
@@ -108,15 +94,6 @@
 Для запуска приложения необходимо передать путь до изображения
 (ключ `-i`) и до файлов в формате `.csv`, содержащего базу городов и регионов.
 
-Пример:
-
-```bash
-./build/search_admin_unit_app -i="./test_data/images/probe.jpg" \ 
-                              -c="./test_data/cities_dbs/million_plus_cities.csv" \
-                              -r="./test_data/admin_units_dbs/russian_admin_units.csv \
-                              -t=csv
-```
-
 ## Приложение для разбиения базы городов на сегменты
 
 ```bash
@@ -126,12 +103,6 @@
 Для запуска приложения необходимо передать путь до файла в формате `.csv`, 
 содержащего базу городов.
 
-Пример:
-
-```bash
-./build/cities_grid_app -f="./test_data/cities_dbs/russian_cities.csv"
-```
-
 ## Приложения для поиска соседних регионов (для регионов РФ)
 
 ```bash
@@ -140,9 +111,3 @@
 
 Для запуска приложения необходимо передать путь до файла в формате `.csv`, 
 содержащего базу регионов.
-
-Пример:
-
-```bash
-./build/district_neighbors_app -d="./test_data/admin_units_dbs/russian_admin_units.csv"
-```
