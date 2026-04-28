@@ -1,0 +1,25 @@
+namespace LocationsSegmentsData;
+
+struct LatitudeRange {
+    min:double;
+    max:double;
+}
+
+struct LongitudeRange {
+    min:double;
+    max:double;
+}
+
+table LocationsSegmentInfo {
+    segment_id: uint;
+    lat_range: LatitudeRange;
+    lon_range: LongitudeRange;
+    neighbors: [uint];
+    locations: [uint];
+}
+
+table LocationsSegments {
+    data: [LocationsSegmentInfo];
+}
+
+root_type LocationsSegments;

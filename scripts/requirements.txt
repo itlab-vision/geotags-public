@@ -1,0 +1,9 @@
+folium==0.20.0
+pandas==2.2.3
+geopandas==1.1.1
+shapely==2.1.1
+beautifulsoup4==4.12.3
+pylint==3.0.3
+rapidfuzz==3.14.3
+scikit-learn==1.8.0
+numpy==2.4.3
