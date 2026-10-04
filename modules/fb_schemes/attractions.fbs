@@ -1,0 +1,28 @@
+namespace AttractionsData;
+
+struct Coordinates {
+    latitude:double;
+    longitude:double;
+}
+
+table ExtraField {
+    key:string (key);
+    value:string;
+}
+
+table AttractionInfo {
+    type:string;
+    name:string;
+    extra_fields:[ExtraField];
+}
+
+table Attraction {
+    info:AttractionInfo;
+    coords:Coordinates;
+}
+
+table Attractions {
+    data:[Attraction];
+}
+
+root_type Attractions;

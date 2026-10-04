@@ -1,0 +1,41 @@
+namespace DistrictsData;
+
+struct Point {
+    x: double;
+    y: double;
+}
+
+table Ring {
+    points: [Point];
+}
+
+table Polygon {
+    exterior: Ring;
+    holes: [Ring];
+}
+
+table MultiPolygon {
+    polys: [Polygon];
+}
+
+union GeometryUnion { 
+    Polygon,
+    MultiPolygon
+}
+
+table DistrictInfo {
+    id: uint;
+    name_en: string;
+    name: string;
+}
+
+table DistrictEntry {
+    info: DistrictInfo;
+    geom: GeometryUnion;
+}
+
+table Districts {
+    data: [DistrictEntry];
+}
+
+root_type Districts;
